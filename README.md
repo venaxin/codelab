@@ -1,3 +1,5 @@
+<img src="./client/src/CodeLab.gif">
+
 # Codelab
 
 Codelab is an online code editor that allows users to write, edit, and execute code in various programming languages directly in the browser. With its intuitive interface and powerful features, Codelab aims to provide developers and learners with a seamless coding experience.
@@ -20,22 +22,32 @@ Codelab is an online code editor that allows users to write, edit, and execute c
 ## Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/your-username/codelab.git
+
+   ```
 
 2. Install dependencies:
    ```bash
    cd codelab
    npm install
-   
+
+   ```
 3. Start the development server:
+
    ```bash
    npm start
 
+   ```
+
 4. Start the Frontend:
+
    ```bash
    cd client
    npm start
+
+   ```
 
 5. Open your browser and navigate to `http://localhost:3000` to access Codelab.
 
