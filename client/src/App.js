@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"; // Import axios for making HTTP requests
-import { ReactComponent as Logo } from "./code.svg"; // Import your logo SVG file
-import "./App.css"; 
+import axios from "axios";
+import "./App.css";
+import { ReactComponent as Logo } from "./code.svg";
 
 function App() {
   const [code, setCode] = useState("");
   const [language, setLanguage] = useState("javascript");
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
-  const [executed, setExecuted] = useState(false); // Track whether code has been executed
-  const [showBanner, setShowBanner] = useState(true); // Track whether to show the banner
+  const [executed, setExecuted] = useState(false);
+  const [showBanner, setShowBanner] = useState(true);
 
   const executeCode = async () => {
     try {
@@ -27,11 +27,11 @@ function App() {
       );
       setOutput(response.data.output);
       setError("");
-      setExecuted(true); // Set executed to true after successful execution
+      setExecuted(true);
     } catch (error) {
       console.error("Error executing code:", error);
       setError("Error executing code. Please try again.");
-      setExecuted(false); // Set executed to false on error
+      setExecuted(false);
     }
   };
 
@@ -40,37 +40,42 @@ function App() {
   };
 
   const [followerPosition, setFollowerPosition] = useState({ x: 0, y: 0 });
+
+  const handleFollowerMouseMove = (e) => {
+    setFollowerPosition({ x: e.clientX, y: e.clientY });
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousemove", handleFollowerMouseMove);
+
+    return () => {
+      document.removeEventListener("mousemove", handleFollowerMouseMove);
+    };
+  }, []);
+
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const [containerPosition, setContainerPosition] = useState({ x: 0, y: 0 });
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
     setOffset({
-      x: e.clientX - e.target.getBoundingClientRect().left,
-      y: e.clientY - e.target.getBoundingClientRect().top,
+      x: e.clientX - containerPosition.x,
+      y: e.clientY - containerPosition.y,
+    });
+  };
+
+  const handleContainerMouseMove = (e) => {
+    if (!isDragging) return;
+    setContainerPosition({
+      x: e.clientX - offset.x,
+      y: e.clientY - offset.y,
     });
   };
 
   const handleMouseUp = () => {
     setIsDragging(false);
   };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    setFollowerPosition({
-      x: e.clientX - offset.x,
-      y: e.clientY - offset.y,
-    });
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [isDragging]);
 
   return (
     <>
@@ -87,11 +92,10 @@ function App() {
       ></div>
       <div
         className="container"
+        style={{ left: containerPosition.x, top: containerPosition.y }}
         onMouseDown={handleMouseDown}
+        onMouseMove={handleContainerMouseMove}
         onMouseUp={handleMouseUp}
-        style={{
-          cursor: isDragging ? "grabbing" : "grab",
-        }}
       >
         {showBanner && (
           <div className="banner">
@@ -115,13 +119,11 @@ function App() {
         >
           <option value="javascript">JavaScript</option>
           <option value="python">Python</option>
-          
         </select>
         <button className="run-button" onClick={executeCode}>
           Run Code
         </button>
         {error && <div className="error-message">Error: {error}</div>}
-        {/* Conditionally render output only if code has been executed */}
         {executed && (
           <div>
             <h2>Output:</h2>
