@@ -1,0 +1,117 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f4;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 70px;
+  height: 100%;
+  background-color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.codelab-text {
+  writing-mode: vertical-lr;
+
+  font-size: 66px;
+  letter-spacing: 2px;
+}
+
+.container {
+  position: relative;
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.follower {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #007bff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+
+.code-input,
+.language-select,
+.run-button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.language-select:hover,
+.run-button:hover {
+  background-color: #e0e0e0;
+}
+
+.error-message {
+  color: #ff0000;
+  margin-bottom: 10px;
+}
+
+.output {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.banner {
+  background-color: #ffcc00;
+  color: #333;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.banner p {
+  margin: 0;
+}
+
+.banner button {
+  background-color: transparent;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.banner button:hover {
+  color: #ff0000;
+}
